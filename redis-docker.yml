@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+  redis:
+    image: "redis:${REDIS_VERSION}"
+    container_name: "${REDIS_CONTAINER_NAME}"
+    command: >
+      redis-server /usr/local/etc/redis/redis.conf
+      --bind ${REDIS_BIND}
+      --port ${REDIS_INTERNAL_PORT}
+      --requirepass ${REDIS_PASSWORD}
+      --save ${REDIS_SAVE_POLICY}
+      --loglevel ${REDIS_LOGLEVEL}
+      --maxmemory-policy ${REDIS_MAXMEMORY_POLICY}
+      --appendonly ${REDIS_APPENDONLY}
+      --appendfsync ${REDIS_APPENDFSYNC}
+    restart: unless-stopped
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      REDIS_USERNAME: default
+    ports:
+      - "${REDIS_PORT}:${REDIS_INTERNAL_PORT}"
+    volumes:
+      - ${REDIS_DATA_PATH}:/data
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
