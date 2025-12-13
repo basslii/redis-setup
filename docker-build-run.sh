@@ -9,13 +9,13 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR"
 
 ENV_FILE="$SCRIPT_DIR/.env"
-COMPOSE_FILE="$SCRIPT_DIR/redis-docker.yml"
+COMPOSE_FILE="$SCRIPT_DIR/docker-compose.yml"
 
 # ---------------------------------------------------------------------
 # 1️⃣ Verify required files exist
 # ---------------------------------------------------------------------
 if [ ! -f "$COMPOSE_FILE" ]; then
-  echo "❌ redis-docker.yml not found in $SCRIPT_DIR"
+  echo "❌ docker-compose.yml not found in $SCRIPT_DIR"
   exit 1
 fi
 

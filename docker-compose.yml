@@ -1,9 +1,12 @@
-version: "3.8"
-
 services:
   redis:
     image: "redis:${REDIS_VERSION}"
-    container_name: "${REDIS_CONTAINER_NAME}"
+    container_name: redis
+    platform:
+      linux/arm64
+    # linux/amd64 # For production
+    networks:
+      - local-network
     command: >
       redis-server /usr/local/etc/redis/redis.conf
       --bind ${REDIS_BIND}
@@ -23,3 +26,8 @@ services:
     volumes:
       - ${REDIS_DATA_PATH}:/data
       - ./redis.conf:/usr/local/etc/redis/redis.conf
+
+
+networks:
+  local-network:
+    external: true
