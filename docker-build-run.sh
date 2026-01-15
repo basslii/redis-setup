@@ -70,12 +70,12 @@ docker compose -f "$COMPOSE_FILE" --env-file "$ENV_FILE" up -d --build
 echo "⏳ Waiting for Redis to be ready..."
 sleep 2
 
-if docker exec -i "${REDIS_CONTAINER_NAME:-redis-local}" \
+if docker exec -i "${REDIS_CONTAINER_NAME:-redis}" \
   redis-cli -a "$REDIS_PASSWORD" ping 2>/dev/null | grep -q "PONG"; then
   echo "✅ Redis is running and authenticated successfully!"
 else
   echo "⚠️ Redis did not respond to ping. Check logs below:"
-  docker logs "${REDIS_CONTAINER_NAME:-redis-local}" | tail -n 20
+  docker logs "${REDIS_CONTAINER_NAME:-redis}" | tail -n 20
   exit 1
 fi
 
@@ -93,7 +93,7 @@ cat <<EOF
   redis-cli -h localhost -p ${REDIS_PORT} -a ${REDIS_PASSWORD}
 
 🪵 Logs:
-  docker logs -f ${REDIS_CONTAINER_NAME:-redis-local}
+  docker logs -f ${REDIS_CONTAINER_NAME:-redis}
 
 🧹 Stop container:
   docker compose -f "$COMPOSE_FILE" down
