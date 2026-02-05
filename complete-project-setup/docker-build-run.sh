@@ -56,7 +56,7 @@ done
 # 4️⃣ Stop any old containers
 # ---------------------------------------------------------------------
 echo "🧹 Stopping and removing existing Redis container (if any)..."
-docker compose -f "$COMPOSE_FILE" down --remove-orphans || true
+docker compose -f "$COMPOSE_FILE" down || true
 
 # ---------------------------------------------------------------------
 # 5️⃣ Build and start new container
